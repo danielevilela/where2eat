@@ -24,9 +24,37 @@
 				
 			</div>
 		</form>
-		
+		<div id="map" style="width:590px;height:400px;margin: 0 auto;">
 	</div>
-
+	<script>
+	navigator.geolocation.getCurrentPosition(showPosition);
+	var myLatLng = {lat:  position.coords.latitude, lng: position.coords.longitude};
+	function showPosition(position) {
+		//-23.5845287,-46.7014521
+		document.getElementById("inputX").value =  -23.5845287;
+		document.getElementById("inputY").value = -46.7014521;
+		
+		 
+		
+			
+	}
+		function myMap() {
+		
+			var mapOptions = {
+			        center: new google.maps.LatLng(-23.5845287,-46.7014521),
+			        zoom: 15,
+			        mapTypeId: google.maps.MapTypeId.HYBRID
+			    }
+			 var map = new google.maps.Map(document.getElementById("map"), mapOptions);
+				
+			 var marker = new google.maps.Marker({
+		          position: new google.maps.LatLng(-23.5845287,-46.7014521),
+		          map: map,
+		          title: 'Your Position!'
+		        });
+		}
+</script>
+	<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBa8mPI3jgw6L5YPfhkXTyaZmzsTJEwwWc&callback=myMap"></script>
 	<script th:src="@{/webjars/jquery/jquery.min.js}"></script>
 	<script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
 </body>
