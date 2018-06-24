@@ -1,0 +1,5 @@
+@charset "ISO-8859-1";
+
+.default-color{
+	background-image: linear-gradient(to bottom,#a90826 0,#e10422 100%);
+}
