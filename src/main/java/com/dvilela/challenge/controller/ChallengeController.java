@@ -16,13 +16,16 @@ import com.dvilela.challenge.model.Distance;
 import com.dvilela.challenge.model.Location;
 import com.dvilela.challenge.model.Restaurant;
 import com.dvilela.challenge.repository.Locations;
+import com.dvilela.challenge.repository.Restaurants;
 import com.dvilela.challenge.util.Util;
 
 @Controller
 public class ChallengeController {
 
 	 private static final Logger logger = LoggerFactory.getLogger(ChallengeController.class);
-	
+	 private Restaurants iRestaurants;
+	 private Locations iLocations;
+	 
 	@Autowired
 	private Locations locations;
 	
@@ -43,6 +46,7 @@ public class ChallengeController {
 		List<Restaurant> restaurants = util.seedRestaurant(allLocations);
 		List<Distance> distances = util.calculate(userLocation,allLocations,restaurants);
 		
+		List<Location> rsLocation = locations.findAll();
 		for(Distance d : distances) {
 			logger.info("Restaurante"+ d.getId_restaurant()+" Nome "+restaurants.get(d.getId_restaurant()).getName());
 		}

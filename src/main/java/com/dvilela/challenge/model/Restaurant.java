@@ -7,7 +7,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.*;
 
-//@Entity
+@Entity
 public class Restaurant {
 	@Id
 	@GeneratedValue

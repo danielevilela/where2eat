@@ -18,7 +18,7 @@
 		<form class="form-inline" method="POST" th:object="${location}" th:action="@{/init}" style="margin: 20px 20px">
 			<div class="form-group">
 				<input type="text" name="inputX" id="inputX" class="form-control" placeholder="X" th:field="*{valueX}" /> 
-				<input type="text" id="inputY" class="form-control" placeholder="Y" />
+				<input type="text" id="inputY" class="form-control" placeholder="Y" th:field="*{valueY}" />
 				<button type="submit" class="btn btn-primary">Go!</button>
 				
 			</div>

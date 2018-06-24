@@ -5,7 +5,7 @@ public class Distance {
 	private int id;
 	private int id_restaurant;
 	private int id_position;
-	private int distance;
+	private double distance;
 	
 	public int getId() {
 		return id;
@@ -25,10 +25,10 @@ public class Distance {
 	public void setId_position(int id_position) {
 		this.id_position = id_position;
 	}
-	public int getDistance() {
+	public double getDistance() {
 		return distance;
 	}
-	public void setDistance(int distance) {
+	public void setDistance(double distance) {
 		this.distance = distance;
 	}
 	

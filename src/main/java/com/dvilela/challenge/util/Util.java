@@ -11,23 +11,26 @@ import org.slf4j.LoggerFactory;
 import com.dvilela.challenge.model.Distance;
 import com.dvilela.challenge.model.Location;
 import com.dvilela.challenge.model.Restaurant;
+import com.dvilela.challenge.repository.Locations;
+import com.dvilela.challenge.repository.Restaurants;
 
 
 public class Util {
 	
 	 private String googleKey = "AIzaSyBa8mPI3jgw6L5YPfhkXTyaZmzsTJEwwWc";
 	 private static final Logger logger = LoggerFactory.getLogger(Util.class);
+	 private Restaurants iRestaurants;
+	 private Locations iLocations;
 
 
-	public int distanceCalculate(int x1,int y1, int x2, int y2) {		
-		int manhattanDistance = Math.abs(x1-x2) + Math.abs(y1-y2);
+	public double distanceCalculate(double x1,double y1, double x2, double y2) {		
+		double manhattanDistance = Math.abs(x1-x2) + Math.abs(y1-y2);
 		return manhattanDistance;
 	}
 
 	public List<Distance> calculate(Location userLocation, List<Location> allLocations, List<Restaurant> restaurants) {
 		List<Distance> distances = new ArrayList<Distance>();
-		List<JSONObject> entities = new ArrayList<JSONObject>();
-		int distance = 0;
+		double distance = 0;
 		int key = 1;
 		for(Restaurant r : restaurants) {
 		
@@ -49,11 +52,15 @@ public class Util {
 
 	public List<Location> seedLocation() {
 		List<Location> seed = new ArrayList<Location>();
-		Location l = new Location();
+		double x = -23.582423313056886;
+		double y = -46.703185879907224;
 		for(int i = 0; i < 30; i++) {
-			l.setId(i);
-			l.setValueX(i);
-			l.setValueY(i+1);
+			Location l = new Location();
+			//l.setId(i);
+			l.setValueX(x+(Math.random()*10));
+			l.setValueY(y+(Math.random()*10));
+			logger.info(l.getValueX() + " "+ l.getValueY());
+			//this.iLocations.save(l);
 			seed.add(l);
 		}
 		return seed;
@@ -66,6 +73,7 @@ public class Util {
 			r.setId(i);
 			r.setName("Restaurant "+i);
 			r.setPos_id(location.get(i).getId());
+			//this.iRestaurants.save(r); 
 			seed.add(r);
 		}
 		return seed;
