@@ -31,7 +31,7 @@ public class ChallengeController {
 	
 	
 	
-	@GetMapping("/app")
+	@GetMapping("/")
 	public ModelAndView index() {
 		ModelAndView modelAndView = new ModelAndView("index");
 		modelAndView.addObject("location", new Location());
