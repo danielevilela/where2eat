@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width" />
-<title>Guest List</title>
+<title>Restaurants List</title>
 <link th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"
 	rel="stylesheet" />
 <link th:href="@{/webjars/bootstrap/css/bootstrap-theme.min.css}"
@@ -13,35 +13,58 @@
 <body>
 	<div class="panel panel-primary" style="margin: 0 auto;width: 50%;">
 		<div class="panel-heading">
-			<h1 class="panel-title">Guest List</h1>
+			<h1 class="panel-title">Restaurants List</h1>
 		</div>
-		<form class="form-inline" method="POST" th:object="${guest}" th:action="@{/guests}" style="margin: 20px 20px">
+		<form class="form-inline" method="POST" th:object="${location}" th:action="@{/init}" style="margin: 20px 20px">
 			<div class="form-group">
-				<input type="text" class="form-control" placeholder="Name" th:field="*{name}"/> 
-				<input type="text" class="form-control" placeholder="Surname" th:field="*{surname}" />
-				<button type="submit" class="btn btn-primary">Add</button>
+				<input type="text" name="inputX" id="inputX" class="form-control" placeholder="X" th:field="*{valueX}" /> 
+				<input type="text" id="inputY" class="form-control" placeholder="Y" />
+				<button type="submit" class="btn btn-primary">Go!</button>
 				
 			</div>
 		</form>
+		
+		
 		<div class="panel-body">
-			<table class="table table-hover">
+			<table class="table table-hover" id="table-res">
 				<thead>
 					<tr>
 						<th>Name</th>
-						<th>Surname</th>
+						<th>Distance</th>
 					</tr>
 
 				</thead>
 				<tbody>
-					<tr th:each="guest : ${guests}">
-						<td th:text="${guest.name}"></td>
-						<td th:text="${guest.surname}"></td>
+					<tr th:each="restaurant : ${restaurants}">
+						<td th:id="res+${restaurant.id}" th:text="${restaurant.name}"></td>
+						<td th:id="dis+${restaurant.id}" th:text="20"></td>
 					</tr>
 				</tbody>
 			</table>
 		</div>
 	</div>
+	
+	<!--<div id="map" style="width:590px;height:400px;margin: 0 auto;">-->
+	
+	<script>
+			function myMap() {
+		
+			var mapOptions = {
+			        center: new google.maps.LatLng(-23.5845287,-46.7014521),
+			        zoom: 15,
+			        mapTypeId: google.maps.MapTypeId.HYBRID
+			    }
+			 var map = new google.maps.Map(document.getElementById("map"), mapOptions);
+				
+			 var marker = new google.maps.Marker({
+		          position: new google.maps.LatLng(-23.5845287,-46.7014521),
+		          map: map,
+		          title: 'Your Position!'
+		        });
+		}
+		</script>
 
+	<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBa8mPI3jgw6L5YPfhkXTyaZmzsTJEwwWc&callback=myMap"></script>	
 	<script th:src="@{/webjars/jquery/jquery.min.js}"></script>
 	<script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
 </body>

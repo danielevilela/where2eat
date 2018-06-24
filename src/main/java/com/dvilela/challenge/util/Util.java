@@ -3,10 +3,14 @@ package com.dvilela.challenge.util;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.dvilela.challenge.model.Distance;
 import com.dvilela.challenge.model.Location;
+import com.dvilela.challenge.model.Restaurant;
 
 
 public class Util {
@@ -20,15 +24,26 @@ public class Util {
 		return manhattanDistance;
 	}
 
-	public void calculate(Location userLocation, List<Location> allLocations) {
-		List<Integer> distances = new ArrayList<Integer>();
-		
+	public List<Distance> calculate(Location userLocation, List<Location> allLocations, List<Restaurant> restaurants) {
+		List<Distance> distances = new ArrayList<Distance>();
+		List<JSONObject> entities = new ArrayList<JSONObject>();
 		int distance = 0;
-		for(Location l : allLocations) {
-			distance = distanceCalculate(userLocation.getValueX(),userLocation.getValueY(),l.getValueX(),l.getValueY());
-			logger.info("x => "+l.getValueX()+" y=>"+l.getValueY());
-			distances.add(distance);
+		int key = 1;
+		for(Restaurant r : restaurants) {
+		
+				//JSONObject entity = new JSONObject();
+				Distance d  = new Distance();
+				d.setId(key);
+				d.setId_restaurant(r.getId());
+				d.setId_position(r.getPos_id());
+				distance = distanceCalculate(userLocation.getValueX(),userLocation.getValueY(),allLocations.get(r.getPos_id()).getValueX(),allLocations.get(r.getPos_id()).getValueY());
+				d.setDistance(distance);
+				distances.add(d);
+				//entity.put("options", d);
+			
+			key++;
 		}
+		return distances;
 		
 	}
 
@@ -43,4 +58,17 @@ public class Util {
 		}
 		return seed;
 	}
+	public List<Restaurant> seedRestaurant(List<Location> location) {
+		List<Restaurant> seed = new ArrayList<Restaurant>();
+		Location l = new Location();		
+		for(int i = 0; i < 30; i++) {
+			Restaurant r = new Restaurant();
+			r.setId(i);
+			r.setName("Restaurant "+i);
+			r.setPos_id(location.get(i).getId());
+			seed.add(r);
+		}
+		return seed;
+	}
+	
 }
